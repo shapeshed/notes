@@ -16,8 +16,12 @@ cmd_usage() {
     Open a new note in a text editor 
   $PROGRAM list
     List available notes
-  $PROGRAM show
+  $PROGRAM show note-name
     Show a note
+  $PROGRAM rm note-name
+    Delete a note
+  $PROGRAM edit note-name
+    Edit a note
   $PROGRAM version
     Show version information.
 EOF
