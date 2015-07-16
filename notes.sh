@@ -1,3 +1,5 @@
+#!/usr/bin/env sh
+ 
 VERSION=0.0.1
 DATE=`date "+%Y-%m-%d"`
 NOTESFOLDER=~/notes
@@ -32,7 +34,8 @@ cmd_list() {
 }
 
 cmd_new() {
-  ${EDITOR:-vi} $NOTESFOLDER/$DATE-$@.md
+  FILENAME=`echo $@ | tr ' ' '-' | tr '[A-Z]' '[a-z]' | tr -d '[{}(),\!]' | tr -d "\'"`
+  ${EDITOR:-vi} $NOTESFOLDER/$DATE-$FILENAME.md
 }
 
 cmd_edit() {
