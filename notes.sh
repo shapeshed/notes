@@ -1,8 +1,10 @@
 #!/usr/bin/env sh
  
-VERSION=0.0.1
+VERSION=0.0.2
 DATE=`date "+%Y-%m-%d"`
 NOTESFOLDER=~/notes
+export GIT_DIR=~/notes/.git
+export GIT_WORK_TREE=~/notes
 
 cmd_version() {
   cat <<EOF
@@ -36,6 +38,8 @@ cmd_list() {
 cmd_new() {
   FILENAME=`echo $@ | tr ' ' '-' | tr '[A-Z]' '[a-z]' | tr -d '[{}(),\!]' | tr -d "\'"`
   ${EDITOR:-vi} $NOTESFOLDER/$DATE-$FILENAME.md
+	git add $DATE-$FILENAME.md
+	git commit -m "created note for $FILENAME"
 }
 
 cmd_edit() {
