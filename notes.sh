@@ -40,20 +40,20 @@ cmd_list() {
 cmd_new() {
   FILENAME=`echo $@ | tr ' ' '-' | tr '[A-Z]' '[a-z]' | tr -d '[{}(),\!]' | tr -d "\'"`
   ${EDITOR:-vi} $NOTESFOLDER/$DATE-$FILENAME.md
-  
+
   local action="Add"
-	if [[ -f $NOTESFOLDER/$DATE-$FILENAME.md ]]; then
-		action="Edit"
-	fi
-	git add $DATE-$FILENAME.md
-	git commit -m "$action note for $FILENAME"
+  if [[ -f $NOTESFOLDER/$DATE-$FILENAME.md ]]; then
+    action="Edit"
+  fi
+  git add $DATE-$FILENAME.md
+  git commit -m "$action note for $FILENAME"
 }
 
 cmd_edit() {
   ${EDITOR:-vi} $NOTESFOLDER/$@
-	git add $@
+  git add $@
   # BUG need a regex here to extract name
-	git commit -m "Edit note for $FILENAME"
+  git commit -m "Edit note for $FILENAME"
 }
 
 cmd_delete() {
