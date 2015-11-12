@@ -12,7 +12,9 @@ Simple, lightweight note taking from the command line.
 
 ## Installation
 
-`notes.sh` is just a bash script so install it somewhere in your `$PATH` and you are good to go.
+First, create a git repository under `~/notes`. 
+
+Then `notes.sh` is just a bash script, so install it somewhere in your `$PATH` and you are good to go.
 
 ## Usage
 
