@@ -43,3 +43,8 @@ Edit `note-name`
     notes.sh version
 
 Displays the current version
+
+    notes.sh git
+
+Runs git commands on the notes repository
+
