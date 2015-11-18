@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
  
-VERSION=0.0.3
+VERSION=0.0.4
 DATE=`date "+%Y-%m-%d"`
 NOTESFOLDER=~/notes
 export GIT_DIR=~/notes/.git
