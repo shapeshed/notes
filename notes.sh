@@ -52,8 +52,8 @@ cmd_new() {
 cmd_edit() {
   ${EDITOR:-vi} $NOTESFOLDER/$@
   git add $@
-  # BUG need a regex here to extract name
-  git commit -m "Edit note for $FILENAME"
+  local filename=`echo $@ | rev | cut -c 4- | rev`
+  git commit -m "Edit note for $filename"
 }
 
 cmd_delete() {
