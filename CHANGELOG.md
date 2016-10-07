@@ -1,16 +1,21 @@
 # Changelog
 
+## 0.0.5
+
+Remove `.sh` extension from executable
+Change list command to us `ls -1`
+
 ## 0.0.4
 
-[bug] Remove .md extension on edit
+Remove .md extension on edit
 
 ## 0.0.3
 
-[bug] Edit command
+Edit command
 
 ## 0.0.2
 
-[feature] Add Git Support
+Add Git Support
 
 ## 0.0.1
 
