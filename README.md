@@ -18,35 +18,36 @@ Then `notes.sh` is just a bash script, so install it somewhere in your `$PATH` a
 
 ## Usage
 
+Show help text
+
     notes help
 
-Show's help text
+Create a new note and opens it in whatever you have set for `$EDITOR`, or `vi` if not set.
 
     notes new note-name
 
-Creates a new note and opens it in whatever you have set for `$EDITOR`, or `vi` if not set.
+List the notes you've made
 
     notes list 
 
-Lists the notes you've made
+Show the content of `note-name` in the terminal using `more`.
 
     notes show note-name 
 
-Shows the content of `note-name` in the terminal using `more`.
+Delete `note-name`
 
     notes rm note-name
 
-Deletes `note-name`
+Edit `note-name`
 
     notes edit note-name
 
-Edit `note-name`
+Display the current version
 
     notes version
 
-Displays the current version
+Run git commands on the notes repository
 
     notes git
 
-Runs git commands on the notes repository
 
