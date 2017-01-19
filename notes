@@ -1,4 +1,6 @@
 #!/usr/bin/env sh
+
+set -euf -o pipefail
  
 VERSION=0.0.5
 DATE=`date "+%Y-%m-%d"`
