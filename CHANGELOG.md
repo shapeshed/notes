@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.0.6
+
+* Make script POSIX compliant, at least as far as [shellcheck][1] concerned
+* Don't remove .md on edit
+
 ## 0.0.5
 
 Remove `.sh` extension from executable
@@ -20,3 +25,5 @@ Add Git Support
 ## 0.0.1
 
 Initial release
+
+[1]: https://www.shellcheck.net/

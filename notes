@@ -1,21 +1,21 @@
 #!/usr/bin/env sh
 
-set -ef -o pipefail
- 
-VERSION=0.0.5
-DATE=`date "+%Y-%m-%d"`
-NOTESFOLDER=~/notes
-export GIT_DIR=~/notes/.git
-export GIT_WORK_TREE=~/notes
+set -ef
+
+VERSION=0.0.6
+DATE=$(date "+%Y-%m-%d")
+NOTESFOLDER=~/Documents/notes
+export GIT_DIR="$NOTESFOLDER"/.git
+export GIT_WORK_TREE="$NOTESFOLDER"
 
 cmd_version() {
-  cat <<EOF
+    cat <<EOF
 $VERSION
 EOF
 }
 
 cmd_usage() {
-  cat <<EOF
+    cat <<EOF
   $PROGRAM help
     Show this text
   $PROGRAM new note-name
@@ -36,52 +36,75 @@ EOF
 }
 
 cmd_list() {
-  ls -1 $NOTESFOLDER
+    ls -1 $NOTESFOLDER
 }
 
 cmd_new() {
-  FILENAME=`echo $@ | tr ' ' '-' | tr '[A-Z]' '[a-z]' | tr -d '[{}(),\!]' | tr -d "\'"`
-  ${EDITOR:-vi} $NOTESFOLDER/$DATE-$FILENAME.md
+    FILENAME="$(echo "$@" | tr ' ' '-' | tr '[:upper:]' '[:lower:]' | tr -cd '[:alnum:]' | tr -d "\'")"
+    ${EDITOR:-vi} "$NOTESFOLDER"/"$DATE"-"$FILENAME".md
 
-  local action="Add"
-  if [[ -f $NOTESFOLDER/$DATE-$FILENAME.md ]]; then
-    action="Edit"
-  fi
-  git add $DATE-$FILENAME.md
-  git commit -m "$action note for $FILENAME"
+    _new_action="Add"
+    if [ ! -f "$NOTESFOLDER"/"$DATE"-"$FILENAME".md ]; then
+        _new_action="Edit"
+    fi
+    git add "$DATE"-"$FILENAME".md
+    git commit -m "$_new_action note for $FILENAME"
 }
 
 cmd_edit() {
-  ${EDITOR:-vi} $NOTESFOLDER/$@
-  git add $@
-  local filename=`echo $@ | rev | cut -c 4- | rev`
-  git commit -m "Edit note for $filename"
+    ${EDITOR:-vi} "$NOTESFOLDER"/"$*"
+    git add "$*"
+    git commit -m "Edit note for $*"
 }
 
 cmd_delete() {
-  rm $NOTESFOLDER/$@
+    git rm "$NOTESFOLDER"/"$*"
+    git commit -m "Delete note for $*"
 }
 
 cmd_show() {
-  more $NOTESFOLDER/$@
+    more "$NOTESFOLDER"/"$*"
 }
 
 cmd_git() {
-  git "$@"
+    git "$@"
 }
 
 PROGRAM="${0##*/}"
-COMMAND="$1"
 
 case "$1" in
-  help|--help|-h) shift; cmd_usage;;
-  new) shift; cmd_new "$@" ;;
-  edit) shift; cmd_edit "$@" ;;
-  list) shift; cmd_list "$@" ;;
-  show) shift; cmd_show "$@" ;;
-  rm) shift; cmd_delete "$@" ;;
-  version|--version|-v) shift; cmd_version "$@" ;;
-  git) shift; cmd_git "$@" ;;
-  *) cmd_usage "$@" ;;
+help | --help | -h)
+    shift
+    cmd_usage
+    ;;
+new)
+    shift
+    cmd_new "$@"
+    ;;
+edit)
+    shift
+    cmd_edit "$@"
+    ;;
+list)
+    shift
+    cmd_list "$@"
+    ;;
+show)
+    shift
+    cmd_show "$@"
+    ;;
+rm)
+    shift
+    cmd_delete "$@"
+    ;;
+version | --version | -v)
+    shift
+    cmd_version "$@"
+    ;;
+git)
+    shift
+    cmd_git "$@"
+    ;;
+*) cmd_usage "$@" ;;
 esac
 exit 0
